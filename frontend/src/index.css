@@ -1,0 +1,127 @@
+@font-face {
+  font-family: "Glysa";
+  src: url("./assets/fonts/Glysa.otf") format("opentype");
+  /* for medium headers */
+  font-style: normal;
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: "Lexend Deca";
+  src: url("./assets/fonts/LexendDeca.ttf") format("truetype");
+  font-style: normal;
+}
+
+@import "tailwindcss";
+
+@theme {
+  
+  /* The Residential Grey System. I tried my best to match the design, idk I hope I got it */
+  --color-residential-100: #141414; /* Background */
+  --color-residential-90: #191919;
+  --color-residential-80: #1e1e1e; /* Surface */
+  --color-residential-70: #232323;
+  --color-residential-60: #282828; /* Button Default */
+  --color-residential-50: #2d2d2d; /* Button Hover */
+  --color-residential-40: #323232;
+  --color-residential-30: #373737; /* Borders */
+  --color-residential-20: #3c3c3c;
+  --color-residential-10: #414141; /* Highlights */
+
+  --opacity-primary: 1; /* 100% */
+  --opacity-secondary: 0.56; /* 56%  */
+  --opacity-tertiary: 0.32; /* 32%  */
+}
+
+@layer base {
+  body {
+    @apply bg-residential-100 text-white/primary;
+  }
+}
+
+@theme {
+  --font-display: "Glysa", serif;
+  --font-body: "Lexend Deca", sans-serif;
+}
+
+/* Base Styles */
+@layer base {
+  body {
+    background-color: var(--color-residential-100);
+    color: #ffffff;
+    font-family: var(--font-body); /* Set default font to Lexend */
+    -webkit-font-smoothing: antialiased;
+  }
+}
+/* Typography - Mobile First Responsive */
+@layer components {
+  .type-h1 {
+    font-family: var(--font-display); /* Uses Glysa */
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 40px;
+    letter-spacing: 0em;
+  }
+
+  .type-h2 {
+    font-family: var(--font-display); /* Uses Glysa */
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: 0em;
+  }
+
+  .type-h3 {
+    font-family: var(--font-body); /* Uses Lexend */
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: 0.01em;
+  }
+
+  /* Tablet and up (640px+) */
+  @media (min-width: 640px) {
+    .type-h1 {
+      font-size: 48px;
+      line-height: 52px;
+    }
+    .type-h2 {
+      font-size: 36px;
+      line-height: 38px;
+    }
+    .type-h3 {
+      font-size: 30px;
+      line-height: 32px;
+    }
+  }
+
+  /* Desktop (1024px+) */
+  @media (min-width: 1024px) {
+    .type-h1 {
+      font-size: 72px;
+      line-height: 48px;
+    }
+    .type-h2 {
+      font-size: 44px;
+      line-height: 40px;
+    }
+    .type-h3 {
+      font-size: 36px;
+      line-height: 24px;
+    }
+  }
+}
+
+
+/* For invisible scrollbar */
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

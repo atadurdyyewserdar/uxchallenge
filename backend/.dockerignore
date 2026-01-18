@@ -1,0 +1,18 @@
+# Gradle and build
+.gradle
+build/
+
+# IntelliJ / IDE
+.idea
+.vscode
+*.iml
+
+# Git
+.git
+
+# OS
+.DS_Store
+
+# Others
+**/*.class
+**/tmp

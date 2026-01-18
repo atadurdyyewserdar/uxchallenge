@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  backend-dev:
+    image: uxstudio-backend-dev
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    working_dir: /home/gradle/src
+    # mount code and Gradle cache so you can change code without rebuilding image
+    volumes:
+      - ./backend:/home/gradle/src:delegated
+      - gradle-cache:/home/gradle/.gradle
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/contactdb
+    depends_on:
+      - mongodb
+    command: ["./gradlew","bootRun"]
+
+volumes:
+  gradle-cache:
+    driver: local

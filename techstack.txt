@@ -1,0 +1,38 @@
+What you bring
+
+You have strong experience using Spring with Java/Kotlin.
+You have experience designing and building RESTful APIs.
+You are comfortable working with NoSQL databases (preferably MongoDB) and understand data modeling, indexing, and aggregation pipelines.
+You have experience with containerization or cloud platforms (e.g., Docker, AWS, GCP, or Heroku).
+You have experience using Git.
+You are familiar with CI/CD pipelines and build automation (e.g., GitHub Actions).
+You have a good understanding of application performance, scalability, and security principles.
+You are familiar with HTML, CSS, JavaScript, and a frontend framework (it’s a plus if you have experience with Vue.js, but experience with React or Angular is also relevant).
+You are comfortable exploring, evaluating, and integrating AI-powered capabilities and services into backend systems.
+You are a team player and ready to exchange ideas, learn from others, and share your knowledge with your team members.
+You have great communication skills and are fluent in English.
+You are based in Hungary and available to visit our Budapest office twice a week.
+
+What you will do
+
+Build user-friendly web applications.
+Design, build, and maintain scalable and reliable backend services.
+Take ownership of product features from concept to deployment, focusing on backend architecture and integrations.
+Develop and maintain RESTful APIs that power our frontend applications.
+Work with databases (MongoDB) to design efficient data models and ensure performance and data integrity.
+Contribute to configuring and improving our cloud infrastructure and deployment processes.
+Collaborate closely with frontend and product teams to deliver complete, high-quality features.
+Be part of product decisions (e.g., what features we build).
+Experiment with new technologies and tools.
+
+
+The stack we use:
+
+Backend: Spring Framework (we use Kotlin, but it’s perfectly fine if you know Java and are open to learning Kotlin).
+Frontend (optional): Vue.js, but experience with React or Angular is also relevant.
+Deployment: Heroku for hosting our main application.
+Infrastructure: DigitalOcean for external services like our Keycloak authentication server and Caddy reverse proxies.
+Third-party integrations: AWS S3 for image storage and Stripe for payments.
+Version control: Git.
+CI/CD: GitHub pipelines.
+Design: Figma for UI.

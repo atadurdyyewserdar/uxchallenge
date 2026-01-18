@@ -77,9 +77,10 @@ export const ContactModalForm = ({
     // crop picture and append to formData
     if (editorRef.current && image && typeof image !== "string") {
       const canvas = editorRef.current.getImageScaledToCanvas();
+      const fileName = image.name;
       canvas.toBlob((blob) => {
         if (blob) {
-          formData.append("profilePicture", blob, editorRef.current?.props.image.name);
+          formData.append("profilePicture", blob, fileName);
           onSubmit(formData);
         }
       }, "image/png");

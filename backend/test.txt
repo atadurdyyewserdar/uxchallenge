@@ -1,0 +1,260 @@
+backend-1   | 
+backend-1   |   .   ____          _            __ _ _
+backend-1   |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+backend-1   | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+backend-1   |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+backend-1   |   '  |____| .__|_| |_|_| |_\__, | / / / /
+backend-1   |  =========|_|==============|___/=/_/_/_/
+backend-1   | 
+backend-1   |  :: Spring Boot ::                (v4.0.1)
+backend-1   | 
+backend-1   | 2026-01-18T22:21:49.803Z  INFO 1 --- [contact-app-api] [           main] c.u.contactapp.ContactAppApplication     : Starting ContactAppApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 1 (/app.jar started by root in /)
+backend-1   | 2026-01-18T22:21:49.805Z  INFO 1 --- [contact-app-api] [           main] c.u.contactapp.ContactAppApplication     : No active profile set, falling back to 1 default profile: "default"
+backend-1   | 2026-01-18T22:21:50.079Z  INFO 1 --- [contact-app-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+backend-1   | 2026-01-18T22:21:50.100Z  INFO 1 --- [contact-app-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 19 ms. Found 2 MongoDB repository interfaces.
+backend-1   | 2026-01-18T22:21:50.285Z  INFO 1 --- [contact-app-api] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+backend-1   | 2026-01-18T22:21:50.292Z  INFO 1 --- [contact-app-api] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+backend-1   | 2026-01-18T22:21:50.292Z  INFO 1 --- [contact-app-api] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+backend-1   | 2026-01-18T22:21:50.303Z  INFO 1 --- [contact-app-api] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 473 ms
+backend-1   | 2026-01-18T22:21:50.420Z  INFO 1 --- [contact-app-api] [           main] org.mongodb.driver.client                : MongoClient with metadata {"application": {"name": "Cluster0"}, "driver": {"name": "mongo-java-driver|spring-boot|sync", "version": "5.6.2"}, "os": {"type": "Linux", "name": "Linux", "architecture": "aarch64", "version": "6.12.54-linuxkit"}, "platform": "Java/Eclipse Adoptium/21.0.9+10-LTS", "env": {"container": {"runtime": "docker"}}} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=MongoCredential{mechanism=null, userName='atadurdyyewserdar', source='admin', password=<hidden>, mechanismProperties=<hidden>}, transportSettings=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@4538856f, com.mongodb.Jep395RecordCodecProvider@4c3de38e, com.mongodb.KotlinCodecProvider@74b86971, EnumCodecProvider{}]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[127.0.0.1:27017], srvHost=cluster0.yucmr7q.mongodb.net, srvServiceName=mongodb, mode=MULTIPLE, requiredClusterType=REPLICA_SET, requiredReplicaSetName='atlas-s7kzdt-shard-0', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverMonitoringMode=AUTO, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=true, invalidHostNameAllowed=false, context=null}, applicationName='Cluster0', compressorList=[], uuidRepresentation=UNSPECIFIED, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null, timeoutMS=null}
+backend-1   | 2026-01-18T22:21:50.421Z  INFO 1 --- [contact-app-api] [r7q.mongodb.net] org.mongodb.driver.cluster               : Adding discovered server ac-3e6ykrv-shard-00-00.yucmr7q.mongodb.net:27017 to client view of cluster
+backend-1   | 2026-01-18T22:21:50.426Z ERROR 1 --- [contact-app-api] [           main] t.s.DeferredServletContainerInitializers : Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'JWTFilter' defined in URL [jar:nested:/app.jar/!BOOT-INF/classes/!/com/uxstudio/contactapp/filter/JWTFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userDetailsServiceImpl' defined in URL [jar:nested:/app.jar/!BOOT-INF/classes/!/com/uxstudio/contactapp/service/impl/UserDetailsServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.uxstudio.contactapp.repository.UserRepository defined in @EnableMongoRepositories declared on DataMongoRepositoriesRegistrar.EnableMongoRepositoriesConfiguration: Cannot resolve reference to bean 'mongoTemplate' while setting bean property 'mongoOperations'
+backend-1   | 2026-01-18T22:21:50.431Z  INFO 1 --- [contact-app-api] [r7q.mongodb.net] org.mongodb.driver.cluster               : Adding discovered server ac-3e6ykrv-shard-00-02.yucmr7q.mongodb.net:27017 to client view of cluster
+backend-1   | 2026-01-18T22:21:50.431Z  INFO 1 --- [contact-app-api] [r7q.mongodb.net] org.mongodb.driver.cluster               : Adding discovered server ac-3e6ykrv-shard-00-01.yucmr7q.mongodb.net:27017 to client view of cluster
+backend-1   | 2026-01-18T22:21:50.441Z  INFO 1 --- [contact-app-api] [           main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+backend-1   | 2026-01-18T22:21:50.443Z  WARN 1 --- [contact-app-api] [           main] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [BufferPoolPruner-1-thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+backend-1   |  java.base/jdk.internal.misc.Unsafe.park(Native Method)
+backend-1   |  java.base/java.util.concurrent.locks.LockSupport.parkNanos(Unknown Source)
+backend-1   |  java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(Unknown Source)
+backend-1   |  java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+backend-1   |  java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(Unknown Source)
+backend-1   |  java.base/java.util.concurrent.ThreadPoolExecutor.getTask(Unknown Source)
+backend-1   |  java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+backend-1   |  java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+backend-1   |  java.base/java.lang.Thread.run(Unknown Source)
+backend-1   | 2026-01-18T22:21:50.443Z  WARN 1 --- [contact-app-api] [           main] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [cluster-ClusterId{value='696d5cfeb63841bfd8238b41', description='Cluster0'}-srv-cluster0.yucmr7q.mongodb.net] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+backend-1   |  java.base/java.lang.Thread.sleep0(Native Method)
+backend-1   |  java.base/java.lang.Thread.sleep(Unknown Source)
+backend-1   |  com.mongodb.internal.connection.DefaultDnsSrvRecordMonitor$DnsSrvRecordMonitorRunnable.run(DefaultDnsSrvRecordMonitor.java:109)
+backend-1   |  java.base/java.lang.Thread.run(Unknown Source)
+backend-1   | 2026-01-18T22:21:50.443Z  WARN 1 --- [contact-app-api] [           main] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [cluster-ClusterId{value='696d5cfeb63841bfd8238b41', description='Cluster0'}-ac-3e6ykrv-shard-00-00.yucmr7q.mongodb.net:27017] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+backend-1   |  java.base/java.lang.Class.forName0(Native Method)
+backend-1   |  java.base/java.lang.Class.forName(Unknown Source)
+backend-1   |  java.base/java.lang.Class.forName(Unknown Source)
+backend-1   |  java.base/java.security.Provider$Service.getImplClass(Unknown Source)
+backend-1   |  java.base/java.security.Provider$Service.getDefaultConstructor(Unknown Source)
+backend-1   |  java.base/java.security.Provider$Service.newInstanceOf(Unknown Source)
+backend-1   |  java.base/java.security.Provider$Service.newInstanceUtil(Unknown Source)
+backend-1   |  java.base/java.security.Provider$Service.newInstance(Unknown Source)
+backend-1   |  java.base/sun.security.jca.GetInstance.getInstance(Unknown Source)
+backend-1   |  java.base/sun.security.jca.GetInstance.getInstance(Unknown Source)
+backend-1   |  java.base/javax.net.ssl.SSLContext.getInstance(Unknown Source)
+backend-1   |  java.base/javax.net.ssl.SSLContext.getDefault(Unknown Source)
+backend-1   |  com.mongodb.internal.connection.SocketStreamFactory.getSslContext(SocketStreamFactory.java:78)
+backend-1   |  com.mongodb.internal.connection.SocketStreamFactory.create(SocketStreamFactory.java:66)
+backend-1   |  com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:228)
+backend-1   |  com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.setupNewConnectionAndGetInitialDescription(DefaultServerMonitor.java:282)
+backend-1   |  com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.lookupServerDescription(DefaultServerMonitor.java:253)
+backend-1   |  com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.run(DefaultServerMonitor.java:203)
+backend-1   | 2026-01-18T22:21:50.444Z  WARN 1 --- [contact-app-api] [           main] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [cluster-ClusterId{value='696d5cfeb63841bfd8238b41', description='Cluster0'}-ac-3e6ykrv-shard-00-02.yucmr7q.mongodb.net:27017] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+backend-1   |  java.base/java.nio.file.Files.newDirectoryStream(Unknown Source)
+backend-1   |  java.base/javax.crypto.JceSecurity.setupJurisdictionPolicies(Unknown Source)
+backend-1   |  java.base/javax.crypto.JceSecurity$1.run(Unknown Source)
+backend-1   |  java.base/javax.crypto.JceSecurity$1.run(Unknown Source)
+backend-1   |  java.base/java.security.AccessController.doPrivileged(Unknown Source)
+backend-1   |  java.base/javax.crypto.JceSecurity.<clinit>(Unknown Source)
+backend-1   |  java.base/javax.crypto.Cipher.getInstance(Unknown Source)
+backend-1   |  java.base/sun.security.ssl.SSLCipher.isTransformationAvailable(Unknown Source)
+backend-1   |  java.base/sun.security.ssl.SSLCipher.<init>(Unknown Source)
+backend-1   |  java.base/sun.security.ssl.SSLCipher.<clinit>(Unknown Source)
+backend-1   |  java.base/sun.security.ssl.CipherSuite.<clinit>(Unknown Source)
+backend-1   |  java.base/sun.security.ssl.SSLContextImpl.getApplicableSupportedCipherSuites(Unknown Source)
+backend-1   |  java.base/sun.security.ssl.SSLContextImpl$AbstractTLSContext.<clinit>(Unknown Source)
+backend-1   |  java.base/java.lang.Class.forName0(Native Method)
+backend-1   |  java.base/java.lang.Class.forName(Unknown Source)
+backend-1   |  java.base/java.lang.Class.forName(Unknown Source)
+backend-1   |  java.base/java.security.Provider$Service.getImplClass(Unknown Source)
+backend-1   |  java.base/java.security.Provider$Service.getDefaultConstructor(Unknown Source)
+backend-1   |  java.base/java.security.Provider$Service.newInstanceOf(Unknown Source)
+backend-1   |  java.base/java.security.Provider$Service.newInstanceUtil(Unknown Source)
+backend-1   |  java.base/java.security.Provider$Service.newInstance(Unknown Source)
+backend-1   |  java.base/sun.security.jca.GetInstance.getInstance(Unknown Source)
+backend-1   |  java.base/sun.security.jca.GetInstance.getInstance(Unknown Source)
+backend-1   |  java.base/javax.net.ssl.SSLContext.getInstance(Unknown Source)
+backend-1   |  java.base/javax.net.ssl.SSLContext.getDefault(Unknown Source)
+backend-1   |  com.mongodb.internal.connection.SocketStreamFactory.getSslContext(SocketStreamFactory.java:78)
+backend-1   |  com.mongodb.internal.connection.SocketStreamFactory.create(SocketStreamFactory.java:66)
+backend-1   |  com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:228)
+backend-1   |  com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.setupNewConnectionAndGetInitialDescription(DefaultServerMonitor.java:282)
+backend-1   |  com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.lookupServerDescription(DefaultServerMonitor.java:253)
+backend-1   |  com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.run(DefaultServerMonitor.java:203)
+backend-1   | 2026-01-18T22:21:50.444Z  WARN 1 --- [contact-app-api] [           main] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [cluster-ClusterId{value='696d5cfeb63841bfd8238b41', description='Cluster0'}-ac-3e6ykrv-shard-00-01.yucmr7q.mongodb.net:27017] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+backend-1   |  java.base/java.lang.Class.forName0(Native Method)
+backend-1   |  java.base/java.lang.Class.forName(Unknown Source)
+backend-1   |  java.base/java.lang.Class.forName(Unknown Source)
+backend-1   |  java.base/java.security.Provider$Service.getImplClass(Unknown Source)
+backend-1   |  java.base/java.security.Provider$Service.getDefaultConstructor(Unknown Source)
+backend-1   |  java.base/java.security.Provider$Service.newInstanceOf(Unknown Source)
+backend-1   |  java.base/java.security.Provider$Service.newInstanceUtil(Unknown Source)
+backend-1   |  java.base/java.security.Provider$Service.newInstance(Unknown Source)
+backend-1   |  java.base/sun.security.jca.GetInstance.getInstance(Unknown Source)
+backend-1   |  java.base/sun.security.jca.GetInstance.getInstance(Unknown Source)
+backend-1   |  java.base/javax.net.ssl.SSLContext.getInstance(Unknown Source)
+backend-1   |  java.base/javax.net.ssl.SSLContext.getDefault(Unknown Source)
+backend-1   |  com.mongodb.internal.connection.SocketStreamFactory.getSslContext(SocketStreamFactory.java:78)
+backend-1   |  com.mongodb.internal.connection.SocketStreamFactory.create(SocketStreamFactory.java:66)
+backend-1   |  com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:228)
+backend-1   |  com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.setupNewConnectionAndGetInitialDescription(DefaultServerMonitor.java:282)
+backend-1   |  com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.lookupServerDescription(DefaultServerMonitor.java:253)
+backend-1   |  com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitor.run(DefaultServerMonitor.java:203)
+backend-1   | 2026-01-18T22:21:50.445Z  WARN 1 --- [contact-app-api] [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+backend-1   | 2026-01-18T22:21:50.451Z  INFO 1 --- [contact-app-api] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+backend-1   | 
+backend-1   | Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+backend-1   | 2026-01-18T22:21:50.459Z ERROR 1 --- [contact-app-api] [           main] o.s.boot.SpringApplication               : Application run failed
+backend-1   | 
+backend-1   | org.springframework.context.ApplicationContextException: Unable to start web server
+backend-1   |   at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:167) ~[spring-boot-web-server-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:614) ~[spring-context-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143) ~[spring-boot-web-server-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756) ~[spring-boot-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445) ~[spring-boot-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.SpringApplication.run(SpringApplication.java:321) ~[spring-boot-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365) ~[spring-boot-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) ~[spring-boot-4.0.1.jar!/:4.0.1]
+backend-1   |   at com.uxstudio.contactapp.ContactAppApplication.main(ContactAppApplication.java:10) ~[!/:0.0.1-SNAPSHOT]
+backend-1   |   at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source) ~[na:na]
+backend-1   |   at java.base/java.lang.reflect.Method.invoke(Unknown Source) ~[na:na]
+backend-1   |   at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:106) ~[app.jar:0.0.1-SNAPSHOT]
+backend-1   |   at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:64) ~[app.jar:0.0.1-SNAPSHOT]
+backend-1   |   at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:40) ~[app.jar:0.0.1-SNAPSHOT]
+backend-1   | Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+backend-1   |   at org.springframework.boot.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:150) ~[spring-boot-tomcat-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:110) ~[spring-boot-tomcat-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:408) ~[spring-boot-tomcat-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:166) ~[spring-boot-tomcat-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:190) ~[spring-boot-web-server-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:164) ~[spring-boot-web-server-4.0.1.jar!/:4.0.1]
+backend-1   |   ... 13 common frames omitted
+backend-1   | Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'JWTFilter' defined in URL [jar:nested:/app.jar/!BOOT-INF/classes/!/com/uxstudio/contactapp/filter/JWTFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userDetailsServiceImpl' defined in URL [jar:nested:/app.jar/!BOOT-INF/classes/!/com/uxstudio/contactapp/service/impl/UserDetailsServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.uxstudio.contactapp.repository.UserRepository defined in @EnableMongoRepositories declared on DataMongoRepositoriesRegistrar.EnableMongoRepositoriesConfiguration: Cannot resolve reference to bean 'mongoTemplate' while setting bean property 'mongoOperations'
+backend-1   |   at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1382) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1221) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:231) ~[spring-boot-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:185) ~[spring-boot-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:180) ~[spring-boot-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:165) ~[spring-boot-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:97) ~[spring-boot-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.web.context.servlet.WebApplicationContextInitializer.initialize(WebApplicationContextInitializer.java:53) ~[spring-boot-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.springframework.boot.tomcat.servlet.DeferredServletContainerInitializers.onStartup(DeferredServletContainerInitializers.java:55) ~[spring-boot-tomcat-4.0.1.jar!/:4.0.1]
+backend-1   |   at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4416) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1162) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1158) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at java.base/java.util.concurrent.FutureTask.run(Unknown Source) ~[na:na]
+backend-1   |   at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:81) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at java.base/java.util.concurrent.AbstractExecutorService.submit(Unknown Source) ~[na:na]
+backend-1   |   at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:714) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:780) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1162) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1158) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at java.base/java.util.concurrent.FutureTask.run(Unknown Source) ~[na:na]
+backend-1   |   at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:81) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at java.base/java.util.concurrent.AbstractExecutorService.submit(Unknown Source) ~[na:na]
+backend-1   |   at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:714) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:201) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at org.apache.catalina.core.StandardService.startInternal(StandardService.java:410) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:864) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at org.apache.catalina.startup.Tomcat.start(Tomcat.java:435) ~[tomcat-embed-core-11.0.15.jar!/:na]
+backend-1   |   at org.springframework.boot.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:131) ~[spring-boot-tomcat-4.0.1.jar!/:4.0.1]
+backend-1   |   ... 18 common frames omitted
+backend-1   | Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userDetailsServiceImpl' defined in URL [jar:nested:/app.jar/!BOOT-INF/classes/!/com/uxstudio/contactapp/service/impl/UserDetailsServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.uxstudio.contactapp.repository.UserRepository defined in @EnableMongoRepositories declared on DataMongoRepositoriesRegistrar.EnableMongoRepositoriesConfiguration: Cannot resolve reference to bean 'mongoTemplate' while setting bean property 'mongoOperations'
+backend-1   |   at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1382) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1221) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   ... 58 common frames omitted
+backend-1   | Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userRepository' defined in com.uxstudio.contactapp.repository.UserRepository defined in @EnableMongoRepositories declared on DataMongoRepositoriesRegistrar.EnableMongoRepositoriesConfiguration: Cannot resolve reference to bean 'mongoTemplate' while setting bean property 'mongoOperations'
+backend-1   |   at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1712) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1461) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:1225) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1704) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   ... 72 common frames omitted
+backend-1   | Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'mongoTemplate' defined in class path resource [org/springframework/boot/data/mongodb/autoconfigure/MongoDatabaseFactoryDependentConfiguration.class]: Unsatisfied dependency expressed through method 'mongoTemplate' parameter 0: Error creating bean with name 'mongoDatabaseFactory' defined in class path resource [org/springframework/boot/data/mongodb/autoconfigure/MongoDatabaseFactoryConfiguration.class]: Failed to instantiate [org.springframework.data.mongodb.core.MongoDatabaseFactorySupport]: Factory method 'mongoDatabaseFactory' threw exception with message: Database name must not be empty
+backend-1   |   at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:546) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   ... 86 common frames omitted
+backend-1   | Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mongoDatabaseFactory' defined in class path resource [org/springframework/boot/data/mongodb/autoconfigure/MongoDatabaseFactoryConfiguration.class]: Failed to instantiate [org.springframework.data.mongodb.core.MongoDatabaseFactorySupport]: Factory method 'mongoDatabaseFactory' threw exception with message: Database name must not be empty
+backend-1   |   at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   ... 96 common frames omitted
+backend-1   | Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.data.mongodb.core.MongoDatabaseFactorySupport]: Factory method 'mongoDatabaseFactory' threw exception with message: Database name must not be empty
+backend-1   |   at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:183) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:72) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:152) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   ... 110 common frames omitted
+backend-1   | Caused by: java.lang.IllegalArgumentException: Database name must not be empty
+backend-1   |   at org.springframework.util.Assert.hasText(Assert.java:254) ~[spring-core-7.0.2.jar!/:7.0.2]
+backend-1   |   at org.springframework.boot.data.mongodb.autoconfigure.MongoDatabaseFactoryConfiguration.mongoDatabaseFactory(MongoDatabaseFactoryConfiguration.java:53) ~[spring-boot-data-mongodb-4.0.1.jar!/:4.0.1]
+backend-1   |   at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source) ~[na:na]
+backend-1   |   at java.base/java.lang.reflect.Method.invoke(Unknown Source) ~[na:na]
+backend-1   |   at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:155) ~[spring-beans-7.0.2.jar!/:7.0.2]
+backend-1   |   ... 113 common frames omitted
+backend-1   | 
+backend-1 exited with code 1

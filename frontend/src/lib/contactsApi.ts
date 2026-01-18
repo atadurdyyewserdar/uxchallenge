@@ -1,17 +1,52 @@
-import axios from "axios";
+import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
+
+const API_BASE = "http://localhost:8080";
 
 const axiosWithCredentials = axios.create({
-  baseURL: "http://localhost:8080/api", // Set Base URL here
+  baseURL: `${API_BASE}/api`,
 });
 
 axiosWithCredentials.interceptors.request.use((config) => {
-  const token = localStorage.getItem("accessToken"); // or use your auth store getter
+  const token = localStorage.getItem("accessToken");
   if (token) {
-    config.headers = config.headers ?? {};
-    config.headers["Authorization"] = `Bearer ${token}`; // correct spelling: Bearer
+    config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
+
+interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
+  retry?: boolean;
+}
+
+axiosWithCredentials.interceptors.response.use(
+  (response) => response,
+  async (error: AxiosError) => {
+    const originalRequest = error.config as CustomAxiosRequestConfig;
+    if (error.response?.status === 401 && originalRequest && !originalRequest.retry) {
+      originalRequest.retry = true;
+
+      try {
+        const refreshToken = localStorage.getItem("refreshToken");
+        if (!refreshToken) throw new Error("No refresh token");
+        
+        const { data } = await axios.post(`${API_BASE}/api/auth/refresh-token`, null, {
+          params: { refreshToken },
+        });
+        
+        localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("refreshToken", data.refreshToken);
+        originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+        return axiosWithCredentials(originalRequest);
+      } catch (refreshError) {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        window.location.href = "/login";
+        return Promise.reject(refreshError);
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 
 export interface ContactBase {
   fullName: string;
@@ -41,57 +76,26 @@ export interface ContactResponse extends ContactBase {
   isMuted: boolean;
 }
 
-// export const addContact = ({contact}: {contact: ContactBase}) => {
-//   return axiosWithCredentials.post<ContactResponse>(
-//     `/contacts/add-contact`,
-//     contact
-//   );
-// };
+export const addContact = (formData: FormData) =>
+  axiosWithCredentials.post("/contacts/add-contact", formData);
 
-// add contact
-export const addContact = (formData: FormData) => {
-  return axiosWithCredentials.post("/contacts/add-contact", formData);
-};
+export const updateContact = ({ id, formData }: { id: string; formData: FormData }) =>
+  axiosWithCredentials.put(`/contacts/update/${id}`, formData);
 
-// export const updateContact = ({contact, id}: {contact: ContactBase, id: string}) => {
-//   return axiosWithCredentials.put<ContactResponse>(
-//     `/contacts/update/${id}`,
-//     contact
-//   );
-// };
+export const muteContact = (id: string) =>
+  axiosWithCredentials.put(`/contacts/update/toggle-mute/${id}`);
 
-// update contact
+export const deleteContact = (id: string) =>
+  axiosWithCredentials.delete<string>(`/contacts/delete-my-contact/${id}`);
 
-export const updateContact = ({ id, formData }: { id: string; formData: FormData }) => {
-  return axiosWithCredentials.put(`/contacts/update/${id}`, formData);
-};
+export const getAllContacts = () =>
+  axiosWithCredentials.get<ContactResponse[]>("/contacts/get-all-contacts/my");
 
-export const muteContact = (id: string) => {
-  return axiosWithCredentials.put(`contacts/update/toggle-mute/${id}`);
-}
+export const getContact = (id: string) =>
+  axiosWithCredentials.get<ContactResponse>(`/contacts/get-my-contact/${id}`);
 
-export const deleteContact = (id: string) => {
-  return axiosWithCredentials.delete<string>(
-    `/contacts/delete-my-contact/${id}`
-  );
-};
+export const getUserProfile = () =>
+  axiosWithCredentials.get<UserProfile>("/users/get-user");
 
-export const getAllContacts = () => {
-  return axiosWithCredentials.get<ContactResponse[]>(
-    `/contacts/get-all-contacts/my`
-  );
-};
-
-export const getContact = (id: string) => {
-  return axiosWithCredentials.get<ContactResponse>(
-    `/contacts/get-my-contact/${id}`
-  );
-};
-
-export const getUserProfile = () => {
-  return axiosWithCredentials.get<UserProfile>(`/users/get-user`);
-};
-
-export const updateUserProfile = ({formData}: {formData: FormData}) => {
-  return axiosWithCredentials.put<UserProfile>(`/users/update-user`, formData);
-}
+export const updateUserProfile = ({ formData }: { formData: FormData }) =>
+  axiosWithCredentials.put<UserProfile>("/users/update-user", formData);

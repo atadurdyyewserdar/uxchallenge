@@ -1,22 +1,21 @@
 services:
-  mongodb:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-    networks:
-      - app-network
-
   backend:
     build: ./backend
     ports:
       - "8080:8080"
     environment:
-      - SPRING_MONGODB_URI=mongodb://mongodb:27017/contactdb
-    depends_on:
-      - mongodb
-    networks:
-      - app-network
+      - JWT_SECRET=${JWT_SECRET}
+      - MONGODB_URI=${MONGODB_URI}
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_S3_REGION=${AWS_S3_REGION}
+      - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME}
+    env_file:
+      - .env
 
-networks:
-  app-network:
-    driver: bridge
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend

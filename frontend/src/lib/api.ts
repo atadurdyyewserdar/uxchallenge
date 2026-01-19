@@ -18,7 +18,7 @@ export type AuthResponse = {
   roles?: string[];
 };
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
+const API_BASE = import.meta.env.VITE_API_BASE || '/api';
 
 async function postJSON<T = any>(url: string, body: any): Promise<T> {
   const res = await fetch(API_BASE + url, {

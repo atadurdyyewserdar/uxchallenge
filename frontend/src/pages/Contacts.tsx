@@ -141,7 +141,8 @@ const Contacts = () => {
             <button
               className="bg-residential-10 dark:bg-residential-100 cursor-pointer hover:bg-residential-60 h-10 w-10 sm:h-11 sm:w-11 rounded-full shrink-0"
               title="Settings"
-              onClick={() => {
+              onClick={async () => {
+                await userQuery.refetch();
                 setEditingUser(userQuery.data?.data || null);
                 setSettingsIsOpen(true);
               }}

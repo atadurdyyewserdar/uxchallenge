@@ -1,4 +1,4 @@
-# UX Studio Contact Management Application
+# UX Studio Contact app
 
 Full-stack contact management system with JWT authentication, MongoDB storage, and AWS S3 integration.
 

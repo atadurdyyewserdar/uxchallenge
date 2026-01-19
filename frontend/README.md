@@ -1,4 +1,4 @@
-# UX Studio Frontend
+# Frontend
 
 Contact management SPA with React, TypeScript, Vite. Secure auth with JWT refresh, server-side search, dark/light themes, and full CRUD.
 

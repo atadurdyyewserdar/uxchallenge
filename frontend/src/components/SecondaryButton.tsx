@@ -7,11 +7,11 @@ interface SecondaryButtonProps extends ComponentProps<"button"> {
 export function SecondaryButton({ icon, children, className = "", ...props }: SecondaryButtonProps) {
   return (
     <button 
-      className={`cursor-pointer flex h-[40px] items-center justify-center gap-2 rounded-lg pl-3 pr-4 font-medium antialiased transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50
+      className={`cursor-pointer flex h-10 items-center justify-center gap-2 rounded-lg pl-3 pr-4 font-medium antialiased transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50
         bg-transparent 
-        border border-gray-300 dark:border-[#373737] 
+        border border-gray-300 dark:border-residential-30
         text-black dark:text-white 
-        hover:bg-gray-100 dark:hover:bg-[#191919] 
+        hover:bg-gray-100 dark:hover:bg-residential-90
         active:bg-gray-200 dark:active:bg-residential-70
         ${className}`} 
       {...props}

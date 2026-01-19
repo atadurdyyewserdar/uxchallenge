@@ -63,6 +63,8 @@ public class AuthServiceImpl implements AuthService {
         User user = User.builder()
                 .userName(registerRequest.getUserName())
                 .password(encoder.encode(registerRequest.getPassword()))
+                .email(registerRequest.getEmail())
+                .fullName(registerRequest.getFullName())
                 .createdAt(Instant.now())
                 .updatedAt(Instant.now())
                 .isActive(true)

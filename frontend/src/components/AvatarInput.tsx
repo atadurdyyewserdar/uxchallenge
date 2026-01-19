@@ -10,8 +10,7 @@ interface AvatarInputProps {
   image: File | string | null;
   onChange: (file: File) => void;
   onRemove: () => void;
-  
-  // passing the ref up so the parent can trigger the "save canvas" logic
+  // need this to save the cropped image from parent
   editorRef: React.RefObject<AvatarEditor | null>; 
 }
 
@@ -19,6 +18,7 @@ export const AvatarInput = ({ image, onChange, onRemove, editorRef }: AvatarInpu
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [scale, setScale] = useState(1.2);
 
+  // trigger file input when user clicks change button
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       onChange(e.target.files[0]);
@@ -28,6 +28,7 @@ export const AvatarInput = ({ image, onChange, onRemove, editorRef }: AvatarInpu
   return (
     <div className="flex flex-col sm:flex-row items-center gap-5">
       <div className="flex flex-col items-center gap-2">
+        {/* hidden file input, triggered by button click */}
         <input
           type="file"
           accept="image/*"
@@ -57,8 +58,7 @@ export const AvatarInput = ({ image, onChange, onRemove, editorRef }: AvatarInpu
             />
           </div>
         ) : (
-          
-        // default profile icon or existing image url
+          // show existing avatar or fallback icon
           <img
             src={(image as string) || ProfileIconBig}
             alt="Profile"

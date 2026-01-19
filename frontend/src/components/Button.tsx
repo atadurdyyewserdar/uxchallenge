@@ -9,10 +9,12 @@ interface ButtonProps extends ComponentProps<"button"> {
 }
 
 export function Button({ variant = "primary", icon, img, children, className = "", style, ...props }: ButtonProps) {
+  // track hover and click states for animations
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
 
   const base = "flex cursor-pointer items-center justify-center gap-2.5 rounded-full font-medium antialiased disabled:cursor-not-allowed disabled:opacity-50";
+  // auto-adjust padding if it's just an icon or has text + icon
   const sizeStyles = children ? "px-6 py-3 text-base" : "p-3";
 
   // Standard Variants
@@ -24,6 +26,7 @@ export function Button({ variant = "primary", icon, img, children, className = "
   // Special Button Logic
   const isSpecial = variant === "special";
   
+  // gradient with hover/press states using CSS layers
   const getSpecialStyle = () => {
     if (!isSpecial) return {};
     const baseLayers = `
@@ -54,14 +57,13 @@ export function Button({ variant = "primary", icon, img, children, className = "
       onMouseUp={() => setIsPressed(false)}
       {...props}
     >
-      {/* VISUAL HANDLING */}
+      {/* render icon from prop or img url */}
       {(icon || img) && (
         <span className="flex items-center justify-center h-5 w-5">
-          {/* If 'img' prop is passed, we use an <img> tag */}
+          {/* use img tag if available, otherwise component */}
           {img ? (
             <img src={img} alt="" className="h-full w-full object-contain pointer-events-none" />
           ) : (
-            // Otherwise, we render the component directly
             icon
           )}
         </span>

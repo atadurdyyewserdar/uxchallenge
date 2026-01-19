@@ -1,6 +1,6 @@
 import { type ReactNode, type ComponentProps } from "react";
 
-// THE CONTAINER
+// Simple wrapper for dropdown menus — handles layout and theme styles
 export function Dropdown({
   children,
   className = "",
@@ -22,7 +22,7 @@ export function Dropdown({
   );
 }
 
-// THE ITEM INSIDE THE DROPDOWN
+// Single dropdown item — clickable row, supports destructive variant
 interface DropdownItemProps extends ComponentProps<"button"> {
   icon?: ReactNode;
   isDestructive?: boolean;
@@ -41,6 +41,7 @@ export function DropdownItem({ icon, children, isDestructive, className = "", ..
       {...props}
     >
       {icon && (
+        // small icon area on the left
         <span className={`
           flex w-5 items-center justify-center 
           ${isDestructive ? "text-red-500 dark:text-red-400" : "text-black/50 dark:text-white/secondary group-hover:text-black dark:group-hover:text-white"}
@@ -49,7 +50,7 @@ export function DropdownItem({ icon, children, isDestructive, className = "", ..
         </span>
       )}
       
-      {/* Label */}
+      {/* item label */}
       <span className="type-body font-normal">
         {children}
       </span>

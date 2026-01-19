@@ -38,7 +38,7 @@ const Contacts = () => {
   // State
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingContact, setEditingContact] = useState<ContactResponse | null>(
-    null
+    null,
   );
 
   const [isSettingsOpen, setSettingsIsOpen] = useState(false);
@@ -124,32 +124,39 @@ const Contacts = () => {
           >
             <img src={BackArrowIcon} alt="Back" className="h-4 w-4 m-auto" />
           </button>
-          
+
           <div className="flex-1 flex items-center min-w-0">
             <h2 className="type-h2 truncate">Contacts</h2>
           </div>
-          
+
           <div className="flex items-center gap-2 sm:gap-4">
             {/* Mobile theme toggle */}
             <button
               onClick={toggleTheme}
               className="lg:hidden bg-residential-10 dark:bg-residential-100 cursor-pointer hover:bg-residential-60 h-10 w-10 sm:h-11 sm:w-11 rounded-full shrink-0"
             >
-              <img src={LightModeIcon} alt="Theme" className="h-5 w-5 sm:h-6 sm:w-6 m-auto" />
+              <img
+                src={LightModeIcon}
+                alt="Theme"
+                className="h-5 w-5 sm:h-6 sm:w-6 m-auto"
+              />
             </button>
-            
+
             <button
               className="bg-residential-10 dark:bg-residential-100 cursor-pointer hover:bg-residential-60 h-10 w-10 sm:h-11 sm:w-11 rounded-full shrink-0"
               title="Settings"
-              onClick={async () => {
-                await userQuery.refetch();
+              onClick={() => {
                 setEditingUser(userQuery.data?.data || null);
                 setSettingsIsOpen(true);
               }}
             >
-              <img src={SettingsIcon} alt="Settings" className="h-5 w-5 sm:h-6 sm:w-6 m-auto" />
+              <img
+                src={SettingsIcon}
+                alt="Settings"
+                className="h-5 w-5 sm:h-6 sm:w-6 m-auto"
+              />
             </button>
-            
+
             <Button
               variant="special"
               onClick={() => setIsAddModalOpen(true)}
@@ -200,8 +207,8 @@ const Contacts = () => {
       </div>
 
       {/* RIGHT SIDEBAR - Hidden on mobile, shown on lg+ */}
-      <div className="hidden lg:flex flex-1 min-w-0 border-y border-residential-20">       
-       <div className="w-full h-30 flex items-center border-y border-r-0 border-residential-20 mt-20 p-5">
+      <div className="hidden lg:flex flex-1 min-w-0 border-y border-residential-20">
+        <div className="w-full h-30 flex items-center border-y border-r-0 border-residential-20 mt-20 p-5">
           <button
             onClick={toggleTheme}
             className="bg-residential-10 dark:bg-residential-100 cursor-pointer hover:bg-residential-60 h-11 w-11 rounded-full"
@@ -231,7 +238,10 @@ const Contacts = () => {
 
       <UserModalForm
         isOpen={isSettingsOpen}
-        onClose={() => setSettingsIsOpen(false)}
+        onClose={() => {
+          setSettingsIsOpen(false);
+          setEditingUser(null);
+        }}
         initialData={editingUser}
         onSubmit={handleSettingsSubmit}
         isPending={userMutation.isPending}

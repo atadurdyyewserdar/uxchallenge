@@ -127,5 +127,3 @@ docker-compose up -d
 **Codes:** 200 OK | 400 Bad Request | 401 Unauthorized | 404 Not Found | 409 Conflict | 500 Server Error
 
 ---
-
-**Author:** Serdar | UX Studio Challenge

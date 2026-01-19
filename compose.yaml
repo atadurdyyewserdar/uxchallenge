@@ -25,9 +25,8 @@ services:
       - ./certbot/conf:/etc/letsencrypt:rw
 
   certbot:
-    image: certbot/certbot:2.8.0
+    image: certbot/certbot:latest
     volumes:
       - ./certbot/www:/var/www/certbot:rw
       - ./certbot/conf:/etc/letsencrypt:rw
     entrypoint: ""
-    # This is a helper service. Run it with `docker compose run --rm certbot <args>` to request/renew certs.

@@ -194,18 +194,6 @@ docker compose exec frontend nginx -s reload
 curl -I https://app.your-domain.com
 ```
 
-#### Certificate Renewal
-
-Certificates expire every 90 days. Set up automatic renewal with cron:
-
-```bash
-# Test renewal process
-docker compose run --rm certbot renew --dry-run
-
-# Add to crontab (runs daily at 2 AM)
-0 2 * * * cd /path/to/project && docker compose run --rm certbot renew --deploy-hook "docker compose exec frontend nginx -s reload"
-```
-
 #### Docker Compose Configuration
 
 The `compose.yaml` includes:

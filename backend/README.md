@@ -1,4 +1,4 @@
-# Contact Management API
+# API
 
 RESTful API for contact management with JWT authentication, MongoDB storage, and AWS S3 integration.
 

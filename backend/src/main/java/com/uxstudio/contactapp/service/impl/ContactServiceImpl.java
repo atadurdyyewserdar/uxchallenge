@@ -139,7 +139,7 @@ public class ContactServiceImpl implements ContactService {
         if (contactData.getProfilePicture() != null && !contactData.getProfilePicture().isEmpty()) {
             String avatarUrl = getImageURL(contactData.getProfilePicture());
             contact.setPictureUrl(avatarUrl);
-        } else if (contactData.getDeletePicture().equals(true)) {
+        } else if (Boolean.TRUE.equals(contactData.getDeletePicture())) {
             contact.setPictureUrl(null);
         }
 

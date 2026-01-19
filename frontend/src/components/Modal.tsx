@@ -13,7 +13,7 @@ export function Modal({ isOpen, title, children }: ModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 transition-all p-4">
-      {/* modal surface*/}
+      {/* modal container*/}
       <div className="text-black dark:text-white bg-white dark:bg-residential-80 w-auto max-w-lg rounded-2xl border border-residential-30 p-4 sm:p-8 max-h-[90vh] overflow-y-auto">
         {/* header/title */}
         <div className="mb-4 sm:mb-6 flex items-center justify-between">

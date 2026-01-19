@@ -118,21 +118,21 @@ export const ContactModalForm = ({
           <TextField
             label="Name"
             placeholder="Jonas Jones"
-            className="w-full sm:max-w-79"
+            className="w-full sm:max-w-80"
             {...register("fullName")}
             error={errors.fullName?.message}
           />
           <TextField
             label="Phone number"
             placeholder="+36 01 234 5678"
-            className="w-full sm:max-w-79"
+            className="w-full sm:max-w-80"
             {...register("phoneNumber")}
             error={errors.phoneNumber?.message}
           />
           <TextField
             label="Email"
             placeholder="example@gmail.com"
-            className="w-full sm:max-w-79"
+            className="w-full sm:max-w-80"
             {...register("email")}
             error={errors.email?.message}
           />

@@ -1,9 +1,9 @@
 // axios instance that automatically sends auth token and talks to our backend
 import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
+import { API_BASE } from "./api";
 
 const axiosWithCredentials = axios.create({
-//   baseURL: "/api",
-    baseURL: "http://localhost:8080/api",
+  baseURL: API_BASE,
 });
 
 // attach JWT to outgoing requests when available
@@ -15,38 +15,32 @@ axiosWithCredentials.interceptors.request.use((config) => {
   return config;
 });
 
-interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
-  retry?: boolean;
+async function refreshTokens() {
+  const refreshToken = localStorage.getItem("refreshToken");
+  if (!refreshToken) throw new Error("no-refresh");
+  const { data } = await axiosWithCredentials.post("/auth/refresh-token", { refreshToken });
+  localStorage.setItem("accessToken", data.accessToken);
+  if (data.refreshToken) localStorage.setItem("refreshToken", data.refreshToken);
+  return data.accessToken;
 }
 
 axiosWithCredentials.interceptors.response.use(
-  (response) => response,
-  async (error: AxiosError) => {
-    const originalRequest = error.config as CustomAxiosRequestConfig;
-    // If we get 401, try refreshing the access token once and replay the request
-    if (error.response?.status === 401 && originalRequest && !originalRequest.retry) {
-      originalRequest.retry = true;
+  (r) => r,
+  async (err) => {
+    const original = err.config as any;
+    if (err.response?.status !== 401 || original?._retry) return Promise.reject(err);
+    original._retry = true;
 
-      try {
-        const refreshToken = localStorage.getItem("refreshToken");
-        if (!refreshToken) throw new Error("No refresh token");
-        
-        const { data } = await axios.post(`/api/auth/refresh-token`, null, {
-          params: { refreshToken },
-        });
-        
-        localStorage.setItem("accessToken", data.accessToken);
-        localStorage.setItem("refreshToken", data.refreshToken);
-        originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
-        return axiosWithCredentials(originalRequest);
-      } catch (refreshError) {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        window.location.href = "/login";
-        return Promise.reject(refreshError);
-      }
+    try {
+      const newToken = await refreshTokens();
+      original.headers = { ...(original.headers || {}), Authorization: `Bearer ${newToken}` };
+      return axiosWithCredentials(original);
+    } catch (e) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      window.location.href = "/login";
+      return Promise.reject(e);
     }
-    return Promise.reject(error);
   }
 );
 

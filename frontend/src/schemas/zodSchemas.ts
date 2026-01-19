@@ -1,16 +1,17 @@
 import { z } from "zod";
 
 export const contactSchema = z.object({
-  fullName: z.string().min(1, "Name is required").max(50, "Name is too long"),
+  // Backend requires min 2, max 50 for fullName
+  fullName: z.string().min(2, "Name is required").max(50, "Name is too long"),
+  // Allow optional leading + and separators to match backend pattern: ^\+?[0-9. ()-]{7,25}$
   phoneNumber: z
     .string()
-    .regex(
-      /^\+[0-9]{7,25}$/,
-      "Phone must start with + followed by 7-25 digits"
-    ),
+    .regex(/^[+]?[0-9. ()-]{7,25}$/, "Phone must be 7-25 characters and can include +, digits, spaces, dots, parentheses or -"),
   email: z.email("Invalid email address"),
 });
 
+// Use a partial schema for updates so fields can be omitted on partial updates
+export const contactUpdateSchema = contactSchema.partial();
 export const authSchema = z.object({
   userName: z
     .string()

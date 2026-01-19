@@ -50,7 +50,7 @@ export const UserModalForm = ({
               email: initialData.email,
               password: "",
             }
-          : { fullName: "", email: "", password: "" },
+          : { fullName: "", email: "", password: "" }
       );
     }
   }, [isOpen, initialData, reset]);
@@ -86,10 +86,11 @@ export const UserModalForm = ({
     <Modal isOpen={isOpen} onClose={onClose} title="Profile Settings">
       <form
         onSubmit={handleSubmit(onFormSubmit)}
-        className="space-y-4 sm:space-y-6"
+        className="space-y-4 sm:space-y-6  max-w-md w-full"
       >
-        <div className="space-y-4">
-          {/* Name field */}
+        {/* <div className="space-y-4"> */}
+        {/* Name field */}
+        <div>
           <TextField
             label="Name"
             placeholder="Jonas Jones"
@@ -98,32 +99,34 @@ export const UserModalForm = ({
             {...register("fullName")}
             error={errors.fullName?.message}
           />
-          {/* Email field */}
-          <TextField
-            label="Email"
-            placeholder="example@gmail.com"
-            className="w-full"
-            defaultValue={initialData?.email || ""}
-            {...register("email")}
-            error={errors.email?.message}
-          />
-          {/* Username field (read-only) */}
-          <TextField
-            label="Username"
-            placeholder={initialData?.userName || ""}
-            className="w-full"
-            disabled
-          />
-          {/* Password field */}
-          <TextField
-            label="Password"
-            placeholder="Enter your password"
-            className="w-full"
-            type="password"
-            {...register("password")}
-            error={errors.password?.message}
-          />
         </div>
+
+        {/* Email field */}
+        <TextField
+          label="Email"
+          placeholder="example@gmail.com"
+          className="md:min-w-100"
+          defaultValue={initialData?.email || ""}
+          {...register("email")}
+          error={errors.email?.message}
+        />
+        {/* Username field (read-only) */}
+        <TextField
+          label="Username"
+          placeholder={initialData?.userName || ""}
+          className="w-full"
+          disabled
+        />
+        {/* Password field */}
+        <TextField
+          label="Password"
+          placeholder="Enter your password"
+          className="w-full"
+          type="password"
+          {...register("password")}
+          error={errors.password?.message}
+        />
+        {/* </div> */}
         {/* Action buttons */}
         <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-2">
           <SecondaryButton

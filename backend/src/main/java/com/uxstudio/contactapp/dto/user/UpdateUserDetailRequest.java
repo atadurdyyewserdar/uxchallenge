@@ -1,8 +1,6 @@
 package com.uxstudio.contactapp.dto.user;
 
-import com.uxstudio.contactapp.dto.contact.OnCreate;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,19 +9,17 @@ import lombok.Data;
 @AllArgsConstructor
 public class UpdateUserDetailRequest {
 
-    @Email
-    @NotBlank(message = "Email is required", groups = OnCreate.class)
+    @Email(message = "Invalid email format")
     String email;
-    @NotBlank(message = "Name is required", groups = OnCreate.class)
-    @Size(min = 4, max = 50, message = "Name must be between 4 and 50 chars")
+
+    @Size(min = 4, max = 50, message = "Username must be between 4 and 50 characters")
     String userName;
 
-    @NotBlank(message = "Name is required", groups = OnCreate.class)
-    @Size(min = 4, max = 50, message = "Name must be between 4 and 50 chars")
+    // Password is optional on update; when provided it must be between 4 and 50 chars
+    @Size(min = 4, max = 50, message = "Password must be between 4 and 50 characters")
     String password;
 
-    @NotBlank(message = "Name is required", groups = OnCreate.class)
-    @Size(min = 1, max = 50, message = "Name must be between 1 and 50 chars")
+    @Size(min = 1, max = 50, message = "Full name must be between 1 and 50 characters")
     String fullName;
     Boolean isActive;
     Boolean isLocked;

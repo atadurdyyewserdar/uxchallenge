@@ -10,7 +10,6 @@ import com.uxstudio.contactapp.exception.ContactNotDeleted;
 import com.uxstudio.contactapp.exception.ContactNotFoundException;
 import com.uxstudio.contactapp.exception.UserNotFoundException;
 import com.uxstudio.contactapp.service.ContactService;
-import jakarta.validation.Valid;
 import jakarta.validation.groups.Default;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

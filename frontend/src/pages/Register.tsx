@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
 import { useForm } from "react-hook-form";
 import { registerUser, resetError } from "../redux/authSlice";
 import { useEffect } from "react";
+import UxLogoWhite from "../assets/svg/uxlogowhite.svg";
 
 export default function Register() {
   // signup form handled by react-hook-form
@@ -36,7 +37,13 @@ export default function Register() {
 
   return (
     <div className="min-h-screen flex items-center flex-col justify-center px-4 py-10 sm:py-30">
-      <form onSubmit={handleSubmit(handleSubmitSignup)} className="p-4 w-full max-w-md">
+      <div className="mr-5">
+        <img src={UxLogoWhite} alt="UX Studio" className="mb-10 w-auto" />
+      </div>
+      <form
+        onSubmit={handleSubmit(handleSubmitSignup)}
+        className="p-4 w-full max-w-md"
+      >
         <div>
           <TextField
             label="Username"
@@ -85,9 +92,12 @@ export default function Register() {
               {status === "loading" ? "Registering..." : error}
             </div>
           </div>
-          <div className="mt-4">
+          <div className="mt-4 flex flex-col gap-2">
             <NavLink to="/login" className="text-blue-500 underline text-sm">
               Already have an account? Sign in
+            </NavLink>
+            <NavLink to="/" className="text-blue-500 underline text-sm">
+              Home page
             </NavLink>
           </div>
         </div>

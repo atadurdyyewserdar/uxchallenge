@@ -10,6 +10,10 @@ import com.uxstudio.contactapp.repository.ContactRepository;
 import com.uxstudio.contactapp.service.AmazonS3Service;
 import com.uxstudio.contactapp.service.ContactService;
 import com.uxstudio.contactapp.util.SecurityUtils;
+import com.uxstudio.contactapp.util.InputValidator;
+import com.uxstudio.contactapp.util.RequestValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -27,6 +31,7 @@ public class ContactServiceImpl implements ContactService {
     private final ContactRepository contactRepository;
     private final SecurityUtils securityUtils;
     private final AmazonS3Service s3Service;
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
     @Value("${aws.s3.region}")
     private String s3RegionName;
     @Value("${aws.s3.bucket.name}")
@@ -56,19 +61,24 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public void deleteMyContact(String id) throws ContactNotDeleted {
+        InputValidator.requireValidId(id, "Contact ID cannot be null or empty");
+        
         String currentUserName = securityUtils
                 .currentUsername()
                 .orElseThrow(() -> new IllegalArgumentException("Username is not present"));
 
         var deleted = contactRepository.deleteContactByIdAndOwnerUserName(id, currentUserName);
-        if (deleted == 0) throw new ContactNotDeleted("Contact not found or something went wrong");
+        if (deleted == 0) {
+            LOGGER.warn("Failed to delete contact - contactId: {}, owner: {} - not found", id, currentUserName);
+            throw new ContactNotDeleted("Failed to delete contact");
+        }
+        
+        LOGGER.info("Contact deleted successfully - contactId: {}, owner: {}", id, currentUserName);
     }
 
     @Override
     public ContactResponse toggleMuteContact(String id) throws ContactNotFoundException {
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("Id can not be null");
-        }
+        InputValidator.requireValidId(id, "Contact ID cannot be null or empty");
 
         String currentUserName = securityUtils
                 .currentUsername()
@@ -76,28 +86,36 @@ public class ContactServiceImpl implements ContactService {
 
         Contact contact = contactRepository
                 .findContactByIdAndOwnerUserName(id, currentUserName)
-                .orElseThrow(() -> new ContactNotFoundException("Not found"));
+                .orElseThrow(() -> {
+                    LOGGER.warn("Contact not found contactId: {}, owner: {}", id, currentUserName);
+                    return new ContactNotFoundException("Not found");
+                });
 
         if (!contact.getOwnerUserName().equals(currentUserName)) {
-            throw new IllegalArgumentException("Something went wrong");
+            LOGGER.warn("Unauthorized mute toggle attempt - contactId: {}", id);
+            throw new IllegalArgumentException("Unauthorized attempt");
         }
 
         contact.setIsMuted(!contact.getIsMuted());
-
-        System.out.println(contact.getIsMuted());
-
-        return new ContactResponse(contactRepository.save(contact));
+        Contact saved = contactRepository.save(contact);
+        
+        LOGGER.info("Contact mute status toggled - contactId: {}, owner: {}, newStatus: {}", id, currentUserName, saved.getIsMuted());
+        return new ContactResponse(saved);
     }
 
     @Override
     public List<ContactResponse> findByFullNameContainingOrPhoneNumberContaining(String param) throws UserNotFoundException {
-        String userName = securityUtils.currentUsername().orElseThrow(() -> new UserNotFoundException("User not present"));
-        if (param.isEmpty()) {
-            throw new IllegalArgumentException("Search string is empty");
-        }
-        return searchContactByParam(param, userName)
+        RequestValidator.validateSearchParam(param);
+        
+        String userName = securityUtils.currentUsername()
+                .orElseThrow(() -> new UserNotFoundException("User not present"));
+        
+        List<ContactResponse> results = searchContactByParam(param, userName)
                 .stream().map(ContactResponse::new)
                 .toList();
+        
+        LOGGER.info("Search completed - owner: {}, searchParam: {}, resultCount: {}", userName, param, results.size());
+        return results;
     }
 
     private List<Contact> searchContactByParam(String param, String owner) {
@@ -112,9 +130,16 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public ContactResponse createContact(ContactRequest contactRequest) throws IOException {
+        RequestValidator.validateContactRequest(contactRequest);
+        
+        String owner = securityUtils
+                .currentUsername()
+                .orElseThrow(() -> new IllegalArgumentException("Username is not present"));
+
         String url = null;
         if (contactRequest.getProfilePicture() != null) {
             url = getImageURL(contactRequest.getProfilePicture());
+            LOGGER.debug("Profile picture uploaded for new contact - owner: {}, imageUrl: {}", owner, url);
         }
         Contact contact = Contact.builder()
                 .email(contactRequest.getEmail())
@@ -122,21 +147,19 @@ public class ContactServiceImpl implements ContactService {
                 .createdAt(Instant.now())
                 .fullName(contactRequest.getFullName())
                 .lastModified(Instant.now())
-                .ownerUserName(securityUtils
-                        .currentUsername()
-                        .orElseThrow(() -> new IllegalArgumentException("Username is not present")))
+                .ownerUserName(owner)
                 .pictureUrl(url)
                 .isMuted(Boolean.FALSE)
                 .build();
         contact = contactRepository.save(contact);
+        
+        LOGGER.info("Contact created successfully - contactId: {}, owner: {}", contact.getId(), owner);
         return new ContactResponse(contact);
     }
 
     @Override
     public ContactResponse updateContact(ContactRequest contactData, String id) throws ContactNotFoundException, IOException {
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("Id can not be null");
-        }
+        InputValidator.requireValidId(id, "Contact ID cannot be null or empty");
 
         Contact contact = contactRepository
                 .findById(id)
@@ -147,19 +170,18 @@ public class ContactServiceImpl implements ContactService {
                 .orElseThrow(() -> new IllegalArgumentException("Username is not present"));
 
         if (!contact.getOwnerUserName().equals(currentUserName)) {
-            throw new IllegalArgumentException("Data is not matching");
+            LOGGER.warn("Unauthorized contact update attempt for contactId: {}", id);
+            throw new IllegalArgumentException("Unauthorized attempt");
         }
 
-        if (contactData.getEmail() != null
-                && !contactData.getEmail().isBlank()) {
+        // Update fields only if provided and not blank
+        if (InputValidator.shouldUpdate(contactData.getEmail())) {
             contact.setEmail(contactData.getEmail());
         }
-        if (contactData.getFullName() != null
-                && !contactData.getFullName().isBlank()) {
+        if (InputValidator.shouldUpdate(contactData.getFullName())) {
             contact.setFullName(contactData.getFullName());
         }
-        if (contactData.getPhoneNumber() != null
-                && !contactData.getPhoneNumber().isBlank()) {
+        if (InputValidator.shouldUpdate(contactData.getPhoneNumber())) {
             contact.setPhoneNumber(contactData.getPhoneNumber());
         }
 
@@ -171,8 +193,9 @@ public class ContactServiceImpl implements ContactService {
         }
 
         contact.setLastModified(Instant.now());
-
         contact = contactRepository.save(contact);
+
+        LOGGER.info("Contact updated successfully - contactId: {}, owner: {}", contact.getId(), currentUserName);
 
         return new ContactResponse(contact);
     }

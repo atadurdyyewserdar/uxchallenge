@@ -17,6 +17,7 @@ public class ContactRequest {
     @Size(min = 2, max = 50, message = "Name must be between 2 and 50 chars")
     private String fullName;
 
+    // alloow optional leading + and separators (digits, spaces, dots, parentheses, hyphen)
     @Pattern(regexp = "^\\+?[0-9. ()-]{7,25}$", message = "Invalid phone number")
     private String phoneNumber;
 

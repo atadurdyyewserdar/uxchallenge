@@ -3,6 +3,7 @@ package com.uxstudio.contactapp.filter;
 import com.uxstudio.contactapp.service.impl.UserDetailsServiceImpl;
 import com.uxstudio.contactapp.util.JWTProvider;
 import com.uxstudio.contactapp.exception.UnauthorizedException;
+import com.uxstudio.contactapp.constants.ExceptionConstants;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -36,27 +37,50 @@ public class JWTFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String header = request.getHeader("Authorization");
+        
+        // checking for authorization header with bearer token is present
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
+            LOGGER.debug("JWT token received from request: {}", request.getRequestURI());
+            
             try {
+                // we extract username from JWT and only set authentication if username is valid and no existing authentication
                 String userName = jwtProvider.extractUsername(token);
+                
                 if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    
+                    // Validate token
                     if (jwtProvider.isTokenValid(token, userName)) {
+                        LOGGER.debug("Token validated successfully for {}", userName);
+                        
                         UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
                         UsernamePasswordAuthenticationToken passAuthToken =
                                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                         passAuthToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                         SecurityContextHolder.getContext().setAuthentication(passAuthToken);
+                        
+                        LOGGER.info("User authenticated successfully: {} from {}", userName, request.getRequestURI());
+                    } else {
+                        LOGGER.warn("Token validation failed for user: {} - token expired or signature mismatch", userName);
                     }
                 }
-            } catch (JwtException | IllegalArgumentException ex) {
+            } catch (JwtException ex) {
+                LOGGER.warn("JWT exception during token validation: {}", ex.getMessage());
                 SecurityContextHolder.clearContext();
-                throw new UnauthorizedException("Invalid or expired token: " + ex.getMessage());
+                throw new UnauthorizedException(ExceptionConstants.INVALID_OR_EXPIRED_TOKEN + ": " + ex.getMessage());
+            } catch (IllegalArgumentException ex) {
+                LOGGER.warn("Illegal argument during token processing: {}", ex.getMessage());
+                SecurityContextHolder.clearContext();
+                throw new UnauthorizedException(ExceptionConstants.INVALID_OR_EXPIRED_TOKEN + ": " + ex.getMessage());
             } catch (Exception ex) {
+                LOGGER.error("Exception during JWT filter execution", ex);
                 SecurityContextHolder.clearContext();
                 throw new UnauthorizedException("Authentication failed");
             }
+        } else if (header != null) {
+            LOGGER.debug("Authorization header present but does not start with Bearer: {}", request.getRequestURI());
         }
+        
         filterChain.doFilter(request, response);
     }
 }

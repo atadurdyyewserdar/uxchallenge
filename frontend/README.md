@@ -1,73 +1,120 @@
-# React + TypeScript + Vite
+# UX Studio Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Contact management SPA with React, TypeScript, Vite. Secure auth with JWT refresh, server-side search, dark/light themes, and full CRUD.
 
-Currently, two official plugins are available:
+For installation and setup instructions, see the root [README.md](../README.md).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## React Compiler
+**Core:** React 19, TypeScript, Vite  
+**State:** Redux Toolkit (auth + persist), TanStack Query (server data)  
+**Forms:** React Hook Form + Zod  
+**HTTP:** Axios with token interceptor  
+**Routing:** React Router v7  
+**Styling:** Tailwind CSS v4
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Architecture
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```mermaid
+graph TB
+    A[Pages] --> B[Components]
+    A --> C[Redux Store]
+    A --> D[TanStack Query]
+    D --> E[Axios Client]
+    E --> F[Backend API]
+    C -.persist.-> G[(localStorage)]
+    E -.tokens.-> G
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Authentication Flow
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```mermaid
+sequenceDiagram
+    User->>Login: credentials
+    Login->>Redux: dispatch(login)
+    Redux->>API: POST /auth/login
+    API-->>Redux: tokens
+    Redux->>localStorage: save
+    Redux-->>User: navigate /contacts
 ```
+
+## Token Refresh
+
+```mermaid
+sequenceDiagram
+    App->>API: request (expired token)
+    API-->>Interceptor: 401
+    Interceptor->>API: POST /auth/refresh-token
+    API-->>Interceptor: new token
+    Interceptor->>API: retry request
+```
+
+## Project Structure
+
+```
+src/
+├── components/      # UI components
+├── hooks/           # Custom hooks (useAuth, useTheme, queryHooks, mutationHooks)
+├── lib/             # API client + endpoints
+├── pages/           # Routes (Home, Login, Register, Contacts)
+├── redux/           # Store + authSlice
+├── route/           # RequireAuth guard
+├── schemas/         # Zod validation
+└── App.tsx          # Root routes
+```
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/auth/login` | Login |
+| POST | `/auth/register` | Register |
+| POST | `/auth/refresh-token` | Refresh token |
+| GET | `/contacts/get-all-contacts/my?q=` | List contacts |
+| POST | `/contacts/add-contact` | Add contact |
+| PUT | `/contacts/update/:id` | Update contact |
+| DELETE | `/contacts/delete-my-contact/:id` | Delete contact |
+| GET | `/users/get-user` | User profile |
+| PUT | `/users/update-user` | Update profile |
+
+## Configuration
+
+API base: `/api` (edit in `src/lib/api.ts`)
+
+Vite proxy example:
+```typescript
+export default defineConfig({
+  server: {
+    proxy: { '/api': { target: 'http://localhost:8080', changeOrigin: true } }
+  }
+})
+```
+
+## Features
+
+- JWT auth with auto-refresh on 401
+- Protected routes with RequireAuth guard
+- Server-side contact search (debounced)
+- Dark/light theme (persisted)
+- Form validation (Zod + React Hook Form)
+- Responsive UI (mobile/tablet/desktop)
+
+## State Management
+
+**Redux:** Auth state (`isAuth`, `user`) persisted to localStorage  
+**TanStack Query:** Server data cache with auto-refetch and invalidation
+
+## Error Handling
+
+- 401 → auto token refresh → retry
+- Form errors → instant feedback
+- Network errors → TanStack Query states
+- Refresh fail → clear tokens + redirect to login
+
+## Build
+
+```bash
+npm run build  # outputs to dist/
+```
+
+Deploy `dist/` to static hosting. Ensure SPA routing fallback (serve `index.html` for all routes).

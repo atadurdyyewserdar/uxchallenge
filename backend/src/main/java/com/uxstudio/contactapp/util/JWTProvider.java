@@ -29,6 +29,7 @@ public class JWTProvider {
     }
 
     public String generateAccessToken(String username) {
+        // Create signed JWT with username as subject and expiration time
         return Jwts.builder()
 //                .issuer(JWTConstant.ISSUER)
                 .subject(username)
@@ -39,6 +40,7 @@ public class JWTProvider {
     }
 
     public String generateRefreshToken(String username) {
+        // Create refresh token with same structure as access token
         return Jwts.builder()
 //                .issuer(JWTConstant.ISSUER)
                 .subject(username)
@@ -49,6 +51,7 @@ public class JWTProvider {
     }
 
     private Claims extractAllClaims(String jwt) {
+        // Parse and verify token signature, returns all claims if valid
         return Jwts.parser()
                 .verifyWith(getKey())
                 .build()
@@ -70,6 +73,7 @@ public class JWTProvider {
     }
 
     public boolean isTokenValid(String token, String expectedUsername) {
+        // Verify username matches and token has not expired
         return expectedUsername.equals(extractUsername(token)) && !isExpired(token);
     }
 

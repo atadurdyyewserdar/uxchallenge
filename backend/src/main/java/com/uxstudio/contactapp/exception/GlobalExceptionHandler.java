@@ -1,6 +1,7 @@
 package com.uxstudio.contactapp.exception;
 
 import com.uxstudio.contactapp.dto.records.ErrorResponse;
+import com.uxstudio.contactapp.constants.ExceptionConstants;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
@@ -10,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-//Global exception handler
+
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -41,7 +41,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     private ErrorResponse toErrorResponse(int status, String message, HttpServletRequest request) {
-        String path = (request != null) ? request.getRequestURI() : "";
+        var path = (request != null) ? request.getRequestURI() : "";
         return new ErrorResponse(Instant.now(clock), status, message, path);
     }
 
@@ -62,7 +62,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(UsernameAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleUsernameAlreadyExists(UsernameAlreadyExistsException ex, HttpServletRequest request) {
         LOGGER.warn(ex.getMessage());
-        var body = toErrorResponse(HttpStatus.CONFLICT.value(), "Username already exists", request);
+        var body = toErrorResponse(HttpStatus.CONFLICT.value(), ExceptionConstants.USERNAME_ALREADY_EXISTS, request);
         return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
     }
 
@@ -117,7 +117,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ErrorResponse> handleBadCredentials(BadCredentialsException ex, HttpServletRequest request) {
         LOGGER.warn(ex.getMessage());
-        var body = toErrorResponse(HttpStatus.UNAUTHORIZED.value(), "Invalid email or password", request);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+        var body = toErrorResponse(HttpStatus.UNAUTHORIZED.value(), ExceptionConstants.INCORRECT_CREDENTIALS, request);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(body);
     }
 }

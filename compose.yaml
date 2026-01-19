@@ -32,4 +32,3 @@ services:
       - ./certbot/conf:/etc/letsencrypt:rw
     command: ["sleep", "infinity"]
     restart: "no"
-    # helper service — run one-off commands with `docker compose run --rm certbot <args>`

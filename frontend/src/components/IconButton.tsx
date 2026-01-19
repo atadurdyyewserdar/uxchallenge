@@ -7,6 +7,7 @@ interface IconButtonProps extends ComponentProps<"button"> {
   imgHeight?: number;
 }
 
+// Small circular icon button used for toolbars and menus
 export function IconButton({
   icon,
   variation,
@@ -15,8 +16,9 @@ export function IconButton({
   imgHeight,
   ...props
 }: IconButtonProps) {
+  // choose bg depending on variation
   let bgColors = "bg-gray-200 dark:bg-residential-60";
-  
+
   if (variation === "primary") {
     bgColors = "bg-gray-200 dark:bg-residential-60";
   } else if (variation === "secondary") {
@@ -36,7 +38,13 @@ export function IconButton({
       `}
       {...props}
     >
-      <img src={icon} alt="" className={imgHeight && imgWidth ? `w-${imgWidth} h-${imgHeight}` : "h-4 w-4"} />
+      <img
+        src={icon}
+        alt=""
+        className={
+          imgHeight && imgWidth ? `w-${imgWidth} h-${imgHeight}` : "h-4 w-4"
+        }
+      />
     </button>
   );
 }

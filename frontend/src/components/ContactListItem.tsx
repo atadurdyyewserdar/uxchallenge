@@ -18,11 +18,11 @@ export function ContactListItem({
   isMuted,
 }: ContactListItemProps) {
   return (
-    // Base container
+    // Single row for a contact
     <div className="group flex w-full items-center justify-between rounded-xl py-3 sm:py-4 transition-colors duration-200">
-      {/* inner container */}
+      {/* left block: avatar + text */}
       <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-        {/* avatar circle */}
+        {/* avatar: either user's image or a default */}
         <div className="relative flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-residential-60">
           {avatarSrc ? (
             <img
@@ -31,14 +31,13 @@ export function ContactListItem({
               className="h-full w-full object-cover"
             />
           ) : (
-            //
+            // show default avatar
             <img
               src={ProfileSmallIcon}
               alt="Default Avatar"
               className="h-10 w-10 sm:h-12 sm:w-12"
             />
-          )}
-          {isMuted && (
+          )}           {isMuted && (
             <div className="absolute flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-residential-60/80">
               <img src={MuteIcon} alt="Muted" className="h-4 w-4 sm:h-5 sm:w-5 m-auto" />
             </div>

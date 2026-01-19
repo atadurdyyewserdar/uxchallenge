@@ -24,9 +24,10 @@ export const ContactModalForm = ({
   initialData,
   isPending,
 }: ContactModalFormProps) => {
+  // ref to avatar editor used to get cropped canvas
   const editorRef = useRef<AvatarEditor | null>(null);
 
-  // state of currently selected image
+  // currently selected image (File for new, string for URL, null for none)
   const [image, setImage] = useState<File | string | null>(null);
 
   const {
@@ -74,7 +75,7 @@ export const ContactModalForm = ({
       formData.append("phoneNumber", data.phoneNumber);
     }
 
-    // crop picture and append to formData
+    // if user changed image, crop it and append to form data
     if (editorRef.current && image && typeof image !== "string") {
       const canvas = editorRef.current.getImageScaledToCanvas();
       const fileName = image.name;

@@ -12,11 +12,12 @@ interface MoreMenuProps {
   onDelete?: () => void;
 }
 
+// small three-dot menu with actions like edit/remove
 export function MoreMenu({ onEdit, onDelete }: MoreMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Close on click outside or scroll
+  // close when clicking outside or on scroll
   useEffect(() => {
     function handleInteraction(event: Event) {
       if (!isOpen) return;
@@ -29,7 +30,6 @@ export function MoreMenu({ onEdit, onDelete }: MoreMenuProps) {
         setIsOpen(false);
       }
     }
-
     document.addEventListener("mousedown", handleInteraction);
     document.addEventListener("scroll", handleInteraction, true); // Capture scroll
 

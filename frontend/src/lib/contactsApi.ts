@@ -1,9 +1,11 @@
+// axios instance that automatically sends auth token and talks to our backend
 import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 
 const axiosWithCredentials = axios.create({
   baseURL: "/api",
 });
 
+// attach JWT to outgoing requests when available
 axiosWithCredentials.interceptors.request.use((config) => {
   const token = localStorage.getItem("accessToken");
   if (token) {
@@ -20,6 +22,7 @@ axiosWithCredentials.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const originalRequest = error.config as CustomAxiosRequestConfig;
+    // If we get 401, try refreshing the access token once and replay the request
     if (error.response?.status === 401 && originalRequest && !originalRequest.retry) {
       originalRequest.retry = true;
 

@@ -10,6 +10,7 @@ import { registerUser, resetError } from "../redux/authSlice";
 import { useEffect } from "react";
 
 export default function Register() {
+  // signup form handled by react-hook-form
   const {
     handleSubmit,
     register,

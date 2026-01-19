@@ -5,10 +5,12 @@ interface InputProps extends ComponentProps<"input"> {
   label?: string;
 }
 
+// Basic input with label support
 export function Input({ label, className = "", ...props }: InputProps) {
   return (
     <div className="flex flex-col gap-1.5 text-left">
       {label && (
+        // optional label shown above the field
         <label className="text-sm font-medium text-white/secondary ml-1">
           {label}
         </label>

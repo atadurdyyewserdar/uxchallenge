@@ -1,3 +1,4 @@
+// small helper API wrapper used by auth flows
 export type User = {
   id?: string;
   userName?: string;
@@ -20,6 +21,7 @@ export type AuthResponse = {
 
 const API_BASE = import.meta.env.VITE_API_BASE || '/api';
 
+// tiny fetch helper that returns parsed JSON or throws on non-OK
 async function postJSON<T = any>(url: string, body: any): Promise<T> {
   const res = await fetch(API_BASE + url, {
     method: 'POST',

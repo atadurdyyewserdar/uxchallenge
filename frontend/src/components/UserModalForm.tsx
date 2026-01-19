@@ -86,14 +86,14 @@ export const UserModalForm = ({
     <Modal isOpen={isOpen} onClose={onClose} title="Profile Settings">
       <form
         onSubmit={handleSubmit(onFormSubmit)}
-        className="space-y-4 sm:space-y-6 w-full max-w-xl mx-auto"
+        className="space-y-4 sm:space-y-6"
       >
-        <div className="space-y-5 w-full">
+        <div className="space-y-4">
           {/* Name field */}
           <TextField
             label="Name"
             placeholder="Jonas Jones"
-            className="w-full h-12 sm:h-14 text-base sm:text-lg"
+            className="w-full"
             defaultValue={initialData?.fullName || ""}
             {...register("fullName")}
             error={errors.fullName?.message}
@@ -102,7 +102,7 @@ export const UserModalForm = ({
           <TextField
             label="Email"
             placeholder="example@gmail.com"
-            className="w-full h-12 sm:h-14 text-base sm:text-lg"
+            className="w-full"
             defaultValue={initialData?.email || ""}
             {...register("email")}
             error={errors.email?.message}
@@ -111,14 +111,14 @@ export const UserModalForm = ({
           <TextField
             label="Username"
             placeholder={initialData?.userName || ""}
-            className="w-full h-12 sm:h-14 text-base sm:text-lg"
+            className="w-full"
             disabled
           />
           {/* Password field */}
           <TextField
             label="Password"
             placeholder="Enter your password"
-            className="w-full h-12 sm:h-14 text-base sm:text-lg"
+            className="w-full"
             type="password"
             {...register("password")}
             error={errors.password?.message}

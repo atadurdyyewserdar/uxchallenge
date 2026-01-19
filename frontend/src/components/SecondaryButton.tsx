@@ -4,22 +4,29 @@ interface SecondaryButtonProps extends ComponentProps<"button"> {
   icon?: ReactNode;
 }
 
-export function SecondaryButton({ icon, children, className = "", ...props }: SecondaryButtonProps) {
+// Secondary button — subtle action style
+export function SecondaryButton({
+  icon,
+  children,
+  className = "",
+  ...props
+}: SecondaryButtonProps) {
   return (
-    <button 
-      className={`cursor-pointer flex h-10 items-center justify-center gap-2 rounded-lg pl-3 pr-4 font-medium antialiased transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50
+    <button
+      className={`cursor-pointer flex h-[40px] items-center justify-center gap-2 rounded-lg pl-3 pr-4 font-medium antialiased transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50
         bg-transparent 
-        border border-gray-300 dark:border-residential-30
+        border border-gray-300 dark:border-[#373737] 
         text-black dark:text-white 
-        hover:bg-gray-100 dark:hover:bg-residential-90
+        hover:bg-gray-100 dark:hover:bg-[#191919] 
         active:bg-gray-200 dark:active:bg-residential-70
-        ${className}`} 
+
+        ${className}`}
       {...props}
     >
-      {/* Icon */}
+      {/* optional icon */}
       {icon && <span className="flex items-center justify-center">{icon}</span>}
-      
-      {/* Text Label */}
+
+      {/* Button text */}
       <span className="text-sm tracking-wide">{children}</span>
     </button>
   );

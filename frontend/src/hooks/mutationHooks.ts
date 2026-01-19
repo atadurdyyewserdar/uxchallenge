@@ -1,3 +1,4 @@
+// Convenient mutation hooks (wrap mutation logic for components)
 import { useMutation } from "@tanstack/react-query";
 import { addContact, deleteContact, getUserProfile, muteContact, updateContact, updateUserProfile } from "../lib/contactsApi";
 
@@ -30,6 +31,7 @@ export const useMuteContact = (onSuccess?: () => void) => {
   });
 };
 
+// helper to fetch user profile via mutation (used in special flows)
 export const useGetUserProfile = (onSuccess?: () => void) => {
   return useMutation({
     mutationFn: getUserProfile,
@@ -37,7 +39,7 @@ export const useGetUserProfile = (onSuccess?: () => void) => {
   });
 }
 
-
+// update user profile (returns updated profile)
 export const useUpdateUserProfile = (onSuccess?: () => void) => {
   return useMutation({
     mutationFn: updateUserProfile,

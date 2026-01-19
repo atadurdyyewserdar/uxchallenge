@@ -2,7 +2,8 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 
 const axiosWithCredentials = axios.create({
-  baseURL: "/api",
+//   baseURL: "/api",
+    baseURL: "http://localhost:8080/api",
 });
 
 // attach JWT to outgoing requests when available
@@ -89,8 +90,10 @@ export const muteContact = (id: string) =>
 export const deleteContact = (id: string) =>
   axiosWithCredentials.delete<string>(`/contacts/delete-my-contact/${id}`);
 
-export const getAllContacts = () =>
-  axiosWithCredentials.get<ContactResponse[]>("/contacts/get-all-contacts/my");
+export const getAllContacts = (params?: { param?: string }) => {
+  return axiosWithCredentials.get<ContactResponse[]>("/contacts/get-all-contacts/my", { params });
+}
+  
 
 export const getContact = (id: string) =>
   axiosWithCredentials.get<ContactResponse>(`/contacts/get-my-contact/${id}`);

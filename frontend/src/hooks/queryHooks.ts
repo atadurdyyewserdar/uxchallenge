@@ -2,10 +2,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAllContacts, getContact, getUserProfile } from "../lib/contactsApi";
 
-export const useContacts = () => {
+export const useContacts = (params?: { param?: string }) => {
   return useQuery({
-    queryKey: ["contacts"],
-    queryFn: () => getAllContacts(),
+    queryKey: ["contacts", params],
+    queryFn: () => getAllContacts(params),
   });
 };
 

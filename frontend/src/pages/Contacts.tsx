@@ -28,7 +28,9 @@ import LightModeIcon from "../assets/svg/lightmode.svg";
 import MuteIcon from "../assets/svg/mute.svg";
 import CallIcon from "../assets/svg/call.svg";
 import { useTheme } from "../hooks/useTheme";
+import { useDebounce } from "../hooks/useDebounce";
 import { UserModalForm } from "../components/UserModalForm";
+import { SearchOptions } from "../components/SearchOptions";
 
 const Contacts = () => {
   // Theme
@@ -37,6 +39,9 @@ const Contacts = () => {
   const navigate = useNavigate();
   // State
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const debouncedQuery = useDebounce(searchQuery, 500);
+
   const [editingContact, setEditingContact] = useState<ContactResponse | null>(
     null,
   );
@@ -45,7 +50,8 @@ const Contacts = () => {
 
   // Queries & mutations
   const queryClient = useQueryClient();
-  const contactsQuery = useContacts();
+
+  const contactsQuery = useContacts(debouncedQuery ? { param: debouncedQuery } : undefined);
 
   // Helper to refresh list
   const invalidateContacts = () =>
@@ -101,7 +107,7 @@ const Contacts = () => {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row static bg-white dark:bg-residential-100 text-black dark:text-white">
-      {/* LEFT SIDEBAR - Hidden on mobile, shown on lg+ */}
+      {/* LEFT SIDEBAR - Hidden on mobile*/}
       <div className="hidden lg:flex flex-1 min-w-0 text-right border-y border-residential-20">
         <div className="h-30 flex items-center justify-end border-y border-r-0 border-residential-20 mt-20 p-5 w-full">
           <button
@@ -126,7 +132,7 @@ const Contacts = () => {
           </button>
 
           <div className="flex-1 flex items-center min-w-0">
-            <h2 className="type-h2 truncate">Contacts</h2>
+            <h2 className="md:type-h3 type-h2 truncate">Contacts</h2>
           </div>
 
           <div className="flex items-center gap-2 sm:gap-4">
@@ -163,11 +169,13 @@ const Contacts = () => {
               className="h-10 sm:h-13 px-4 sm:w-45"
             >
               <img src={AddIcon} alt="Add new" className="h-4 w-4" />
-              <span className="hidden sm:inline">Add new</span>
+              <span className="hidden sm:inline text-white">Add new</span>
             </Button>
           </div>
         </div>
-
+        <div className="p-3 sm:p-5 w-full overflow-auto no-scrollbar border-b border-residential-20">
+            <SearchOptions isPending={contactsQuery.isPending} value={searchQuery} onChange={setSearchQuery} />
+        </div>
         <div className="p-3 sm:p-5 w-full overflow-auto no-scrollbar flex-1">
           <ul className="p-0 m-0">
             {contactsQuery.data?.data.map((contact: ContactResponse) => (
@@ -185,7 +193,7 @@ const Contacts = () => {
                       <IconButton
                         variation="secondary"
                         icon={MuteIcon}
-                        title="Mute"
+                        title={contact.isMuted ? "Unmute" : "Mute"}
                         onClick={() => handleMute(contact.id)}
                       />
                       <IconButton

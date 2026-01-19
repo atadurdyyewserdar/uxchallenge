@@ -8,6 +8,7 @@ import com.uxstudio.contactapp.dto.contact.OnCreate;
 import com.uxstudio.contactapp.dto.contact.OnUpdate;
 import com.uxstudio.contactapp.exception.ContactNotDeleted;
 import com.uxstudio.contactapp.exception.ContactNotFoundException;
+import com.uxstudio.contactapp.exception.UserNotFoundException;
 import com.uxstudio.contactapp.service.ContactService;
 import jakarta.validation.Valid;
 import jakarta.validation.groups.Default;
@@ -47,9 +48,11 @@ public class ContactController {
     }
 
     @GetMapping("/get-all-contacts/my")
-    public ResponseEntity<List<ContactResponse>> getAllMyContacts() {
-        List<ContactResponse> contacts = contactService.getContactsByOwner();
-        return ResponseEntity.ok(contacts);
+    public ResponseEntity<List<ContactResponse>> getAllMyContacts(@RequestParam(required = false) String param) throws UserNotFoundException {
+        if (param!= null && !param.trim().isEmpty()) {
+            return ResponseEntity.ok(contactService.findByFullNameContainingOrPhoneNumberContaining(param));
+        }
+        return ResponseEntity.ok(contactService.getContactsByOwner());
     }
 
     @PutMapping("/update/toggle-mute/{id}")

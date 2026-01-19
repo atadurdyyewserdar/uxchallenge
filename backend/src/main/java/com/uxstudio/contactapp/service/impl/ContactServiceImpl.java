@@ -4,12 +4,16 @@ import com.uxstudio.contactapp.dto.contact.ContactRequest;
 import com.uxstudio.contactapp.dto.contact.ContactResponse;
 import com.uxstudio.contactapp.exception.ContactNotDeleted;
 import com.uxstudio.contactapp.exception.ContactNotFoundException;
+import com.uxstudio.contactapp.exception.UserNotFoundException;
 import com.uxstudio.contactapp.model.Contact;
 import com.uxstudio.contactapp.repository.ContactRepository;
 import com.uxstudio.contactapp.service.AmazonS3Service;
 import com.uxstudio.contactapp.service.ContactService;
 import com.uxstudio.contactapp.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,12 +31,14 @@ public class ContactServiceImpl implements ContactService {
     private String s3RegionName;
     @Value("${aws.s3.bucket.name}")
     private String s3BucketName;
+    private final MongoTemplate mongoTemplate;
 
 
-    public ContactServiceImpl(ContactRepository contactRepository, SecurityUtils securityUtils, AmazonS3Service s3Service) {
+    public ContactServiceImpl(ContactRepository contactRepository, SecurityUtils securityUtils, AmazonS3Service s3Service, MongoTemplate mongoTemplate) {
         this.contactRepository = contactRepository;
         this.securityUtils = securityUtils;
         this.s3Service = s3Service;
+        this.mongoTemplate = mongoTemplate;
     }
 
 
@@ -81,6 +87,27 @@ public class ContactServiceImpl implements ContactService {
         System.out.println(contact.getIsMuted());
 
         return new ContactResponse(contactRepository.save(contact));
+    }
+
+    @Override
+    public List<ContactResponse> findByFullNameContainingOrPhoneNumberContaining(String param) throws UserNotFoundException {
+        String userName = securityUtils.currentUsername().orElseThrow(() -> new UserNotFoundException("User not present"));
+        if (param.isEmpty()) {
+            throw new IllegalArgumentException("Search string is empty");
+        }
+        return searchContactByParam(param, userName)
+                .stream().map(ContactResponse::new)
+                .toList();
+    }
+
+    private List<Contact> searchContactByParam(String param, String owner) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("ownerUserName").is(owner));
+        query.addCriteria(new Criteria().orOperator(
+                Criteria.where("fullName").regex(param, "i"),
+                Criteria.where("phoneNumber").regex(param, "i")
+        ));
+        return mongoTemplate.find(query, Contact.class);
     }
 
     @Override

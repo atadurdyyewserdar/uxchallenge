@@ -38,8 +38,8 @@ export function ContactListItem({
               className="h-10 w-10 sm:h-12 sm:w-12"
             />
           )}           {isMuted && (
-            <div className="absolute flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-residential-60/80">
-              <img src={MuteIcon} alt="Muted" className="h-4 w-4 sm:h-5 sm:w-5 m-auto" />
+            <div className={`absolute flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center overflow-hidden rounded-full ${isMuted ? "bg-red-500/50" : ""}`}>
+              <img src={MuteIcon} alt="Muted" className={`h-4 w-4 sm:h-5 sm:w-5 m-auto`} />
             </div>
           )}
         </div>

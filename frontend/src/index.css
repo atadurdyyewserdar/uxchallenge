@@ -16,7 +16,6 @@
 @import "tailwindcss";
 
 @theme {
-  
   /* The Residential Grey System. I tried my best to match the design, idk I hope I got it */
   --color-residential-100: #141414; /* Background */
   --color-residential-90: #191919;
@@ -32,6 +31,9 @@
   --opacity-primary: 1; /* 100% */
   --opacity-secondary: 0.56; /* 56%  */
   --opacity-tertiary: 0.32; /* 32%  */
+
+  /* Animation */
+  animation: var(--animate-spin); /* spin 1s linear infinite */
 }
 
 @layer base {
@@ -113,7 +115,6 @@
   }
 }
 
-
 /* For invisible scrollbar */
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
@@ -123,5 +124,11 @@
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }

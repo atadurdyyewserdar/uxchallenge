@@ -1,9 +1,7 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 
-const API_BASE = "http://localhost:8080";
-
 const axiosWithCredentials = axios.create({
-  baseURL: `${API_BASE}/api`,
+  baseURL: "/api",
 });
 
 axiosWithCredentials.interceptors.request.use((config) => {

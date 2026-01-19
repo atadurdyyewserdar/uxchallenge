@@ -31,9 +31,6 @@
   --opacity-primary: 1; /* 100% */
   --opacity-secondary: 0.56; /* 56%  */
   --opacity-tertiary: 0.32; /* 32%  */
-
-  /* Animation */
-  animation: var(--animate-spin); /* spin 1s linear infinite */
 }
 
 @layer base {
@@ -124,11 +121,5 @@
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
-  }
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
   }
 }

@@ -18,7 +18,7 @@ import {
   useMuteContact,
   useUpdateUserProfile,
 } from "../hooks/mutationHooks";
-import { type ContactResponse, type UserProfile } from "../lib/contactsApi";
+import { type ContactResponse, type UserProfile } from "../lib/api";
 
 // Assets
 import BackArrowIcon from "../assets/svg/blackarrow.svg";
@@ -43,7 +43,7 @@ const Contacts = () => {
   const debouncedQuery = useDebounce(searchQuery, 500);
 
   const [editingContact, setEditingContact] = useState<ContactResponse | null>(
-    null,
+    null
   );
 
   const [isSettingsOpen, setSettingsIsOpen] = useState(false);
@@ -51,7 +51,9 @@ const Contacts = () => {
   // Queries & mutations
   const queryClient = useQueryClient();
 
-  const contactsQuery = useContacts(debouncedQuery ? { param: debouncedQuery } : undefined);
+  const contactsQuery = useContacts(
+    debouncedQuery ? { q: debouncedQuery } : undefined
+  );
 
   // Helper to refresh list
   const invalidateContacts = () =>
@@ -152,6 +154,7 @@ const Contacts = () => {
               className="bg-residential-10 dark:bg-residential-100 cursor-pointer hover:bg-residential-60 h-10 w-10 sm:h-11 sm:w-11 rounded-full shrink-0"
               title="Settings"
               onClick={() => {
+                console.log("user data", userQuery.data);
                 setEditingUser(userQuery.data?.data || null);
                 setSettingsIsOpen(true);
               }}
@@ -174,7 +177,11 @@ const Contacts = () => {
           </div>
         </div>
         <div className="p-3 sm:p-5 w-full overflow-auto no-scrollbar border-b border-residential-20">
-            <SearchOptions isPending={contactsQuery.isPending} value={searchQuery} onChange={setSearchQuery} />
+          <SearchOptions
+            isPending={contactsQuery.isPending}
+            value={searchQuery}
+            onChange={setSearchQuery}
+          />
         </div>
         <div className="p-3 sm:p-5 w-full overflow-auto no-scrollbar flex-1">
           <ul className="p-0 m-0">

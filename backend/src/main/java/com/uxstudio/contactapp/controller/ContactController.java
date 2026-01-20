@@ -47,9 +47,9 @@ public class ContactController {
     }
 
     @GetMapping("/get-all-contacts/my")
-    public ResponseEntity<List<ContactResponse>> getAllMyContacts(@RequestParam(required = false) String param) throws UserNotFoundException {
-        if (param!= null && !param.trim().isEmpty()) {
-            return ResponseEntity.ok(contactService.findByFullNameContainingOrPhoneNumberContaining(param));
+    public ResponseEntity<List<ContactResponse>> getAllMyContacts(@RequestParam(required = false) String q) throws UserNotFoundException {
+        if (q!= null && !q.trim().isEmpty()) {
+            return ResponseEntity.ok(contactService.findByFullNameContainingOrPhoneNumberContaining(q));
         }
         return ResponseEntity.ok(contactService.getContactsByOwner());
     }

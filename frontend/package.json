@@ -22,7 +22,9 @@
     "react-redux": "^9.2.0",
     "react-router": "^7.12.0",
     "react-router-dom": "^7.12.0",
+    "reactflow": "^11.11.4",
     "redux-persist-transform-filter": "^0.0.22",
+    "simple-icons": "^16.6.0",
     "tailwindcss": "^4.1.18",
     "zod": "^4.3.5"
   },

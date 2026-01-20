@@ -1,6 +1,6 @@
 // Convenient mutation hooks (wrap mutation logic for components)
 import { useMutation } from "@tanstack/react-query";
-import { addContact, deleteContact, getUserProfile, muteContact, updateContact, updateUserProfile } from "../lib/contactsApi";
+import { addContact, deleteContact, getUserProfile, muteContact, updateContact, updateUserProfile } from "../lib/api";
 
 export const useDeleteContact = (onSuccess?: () => void) => {
   return useMutation({

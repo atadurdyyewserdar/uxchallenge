@@ -1,4 +1,4 @@
-# Contact Management API
+# API
 
 RESTful API for contact management with JWT authentication, MongoDB storage, and AWS S3 integration.
 
@@ -127,5 +127,3 @@ docker-compose up -d
 **Codes:** 200 OK | 400 Bad Request | 401 Unauthorized | 404 Not Found | 409 Conflict | 500 Server Error
 
 ---
-
-**Author:** Serdar | UX Studio Challenge

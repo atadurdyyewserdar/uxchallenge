@@ -3,7 +3,7 @@ import { logout } from "../redux/authSlice";
 import type { AppDispatch, RootState } from "../redux/store";
 import { Button } from "../components/Button";
 import UxLogoWhite from "../assets/svg/uxlogowhite.svg";
-import { Link, NavLink, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();

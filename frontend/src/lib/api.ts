@@ -2,6 +2,7 @@
 import axios from "axios";
 
 export const API_BASE = '/api';
+// export const API_BASE = 'http://localhost:8080/api';
 
 const axiosWithCredentials = axios.create({
   baseURL: API_BASE,

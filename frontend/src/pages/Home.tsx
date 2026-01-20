@@ -3,7 +3,7 @@ import { logout } from "../redux/authSlice";
 import type { AppDispatch, RootState } from "../redux/store";
 import { Button } from "../components/Button";
 import UxLogoWhite from "../assets/svg/uxlogowhite.svg";
-import { Link, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
@@ -21,8 +21,21 @@ export default function Home() {
             <div className="my-6 sm:m-10">
               <h3 className="type-h3 mb-5">Developer challenge</h3>
               <h3 className="">by Serdar Atadurdyyev</h3>
-              <Link to="https://serdarr.dev" className="block mt-2 text-sm text-blue-600 underline" target="_blank" rel="noopener noreferrer">
+              <Link
+                to="https://serdarr.dev"
+                className="block mt-2 text-sm text-blue-600 underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 serdarr.dev
+              </Link>
+              <Link
+                to="https://github.com/atadurdyyewserdar/uxchallenge"
+                className="block mt-2 text-sm text-blue-600 underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub repository of the project
               </Link>
             </div>
             <div className="my-6 sm:m-10 flex flex-wrap gap-2">
@@ -58,8 +71,21 @@ export default function Home() {
             <div className="my-6 sm:m-10">
               <h3 className="type-h3 mb-5">Developer challenge</h3>
               <span>by Serdar Atadurdyyev</span>
-              <Link to="https://serdarr.dev" className="block mt-2 text-sm text-blue-600 underline" target="_blank" rel="noopener noreferrer">
+              <Link
+                to="https://serdarr.dev"
+                className="block mt-2 text-sm text-blue-600 underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 serdarr.dev
+              </Link>
+              <Link
+                to="https://github.com/atadurdyyewserdar/uxchallenge"
+                className="block mt-2 text-sm text-blue-600 underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub repository of the project
               </Link>
             </div>
             <div className="my-6 sm:m-10 flex flex-wrap gap-2">

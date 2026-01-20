@@ -2,6 +2,7 @@
 
 ### Application is live on: https://uxstudio.serdarr.dev
 
+
 ## Prerequisites
 
 - Node.js 18+ and npm

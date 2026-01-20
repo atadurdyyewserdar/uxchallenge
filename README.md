@@ -1,6 +1,6 @@
 # UX Studio Contact app
 
-Full-stack contact management system with JWT authentication, MongoDB storage, and AWS S3 integration.
+### Application is live on: https://uxstudio.serdarr.dev
 
 ## Prerequisites
 
